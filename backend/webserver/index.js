@@ -6,7 +6,7 @@ const { stat } = require("fs");
 require("dotenv").config();
 
 const app = express();
-app.use(cors);
+app.use(cors());
 const staticPath = path.join(__dirname, "public/static");
 app.use(express.static(staticPath));
 app.use(express.urlencoded({ extended: true }));

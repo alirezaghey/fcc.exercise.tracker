@@ -81,4 +81,4 @@ const findUserByName = (username, done) => {
   });
 };
 
-export { createUser, createUser, findAllExercisesByUser, findAllUsers, findUserByName };
+export { createUser, createExercise, findAllExercisesByUser, findAllUsers, findUserByName };

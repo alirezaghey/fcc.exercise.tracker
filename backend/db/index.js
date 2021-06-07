@@ -80,3 +80,5 @@ const findUserByName = (username, done) => {
     return done(null, data);
   });
 };
+
+export { createUser, createUser, findAllExercisesByUser, findAllUsers, findUserByName };

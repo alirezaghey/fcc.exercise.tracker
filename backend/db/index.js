@@ -32,7 +32,7 @@ const createUser = (username, done) => {
 const createExercise = (userId, description, duration, date = null, done) => {
   User.findById(userId, (err, user) => {
     if (err) return done(err);
-    if (!user) return done({ error: "Invalid userid" });
+    if (!user) return done(null, { error: "Invalid userid" });
     if (!date) {
       date = new Date().toUTCString().split(" ").slice(0, 4).join(" ");
     } else {
@@ -57,7 +57,7 @@ const createExercise = (userId, description, duration, date = null, done) => {
 const findAllExercisesByUser = (userId, done) => {
   User.findById(userId, (err, user) => {
     if (err) return done(err);
-    if (!user) return done({ error: "Invalid userid" });
+    if (!user) return done(null, { error: "Invalid userid" });
     Exercise.find({ userid: userId }, (err, exercises) => {
       if (err) return done(err);
       user.log = exercises;

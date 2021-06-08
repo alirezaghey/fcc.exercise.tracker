@@ -66,9 +66,13 @@ const findAllExercisesByUser = (userId, done) => {
     if (!user) return done(null, { error: "Invalid userid" });
     Exercise.find({ userid: userId }, (err, exercises) => {
       if (err) return done(err);
-      user.log = exercises;
-      user.count = exercises.length;
-      done(null, user);
+      const res = {
+        _id: user._id,
+        username: user.username,
+        log: exercises,
+        count: exercises.length,
+      };
+      done(null, res);
     });
   });
 };

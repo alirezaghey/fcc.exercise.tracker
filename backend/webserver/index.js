@@ -69,6 +69,15 @@ app.get("/api/users/:userid/logs", (req, res) => {
       res.status(500);
       return res.sendFile("err500.html", { root: staticPath });
     } else {
+      if (req.params.from) {
+        data.log = data.log.filter((el) => new Date(el) >= new Date(from));
+      }
+      if (req.params.to) {
+        data.log = data.log.filter((el) => new Date(el) <= new Date(to));
+      }
+      if (req.params.limit) {
+        data.log = data.log.slice(0, limit);
+      }
       return res.json(data);
     }
   });

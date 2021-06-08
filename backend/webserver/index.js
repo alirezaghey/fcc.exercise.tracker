@@ -69,14 +69,18 @@ app.get("/api/users/:userid/logs", (req, res) => {
       res.status(500);
       return res.sendFile("err500.html", { root: staticPath });
     } else {
-      if (req.params.from) {
+      const [from, to, limit] = [req.query.from, req.query.to, req.query.limit];
+      if (from) {
         data.log = data.log.filter((el) => new Date(el) >= new Date(from));
+        data.count = data.log.length;
       }
-      if (req.params.to) {
+      if (to) {
         data.log = data.log.filter((el) => new Date(el) <= new Date(to));
+        data.count = data.log.length;
       }
-      if (req.params.limit) {
+      if (limit) {
         data.log = data.log.slice(0, limit);
+        data.count = data.log.length;
       }
       return res.json(data);
     }

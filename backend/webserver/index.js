@@ -49,7 +49,7 @@ app.post("/api/users/:userid/exercises", (req, res) => {
   const duration = req.body["duration"];
   const date = req.body["date"];
 
-  db.createUser(userId, desc, duration, date, (err, data) => {
+  db.createExercise(userId, desc, duration, date, (err, data) => {
     if (err) {
       console.log(err);
       res.status(500);

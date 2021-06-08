@@ -34,11 +34,11 @@ const createExercise = (userId, description, duration, date = null, done) => {
     if (err) return done(err);
     if (!user) return done(null, { error: "Invalid userid" });
     if (!date) {
-      date = new Date().toUTCString().split(" ").slice(0, 4).join(" ");
+      date = new Date().toDateString();
     } else {
       date = new Date(date);
       if (date == "Invalid Date") return done({ error: "Invalid Date" });
-      date = date.toUTCString().split(" ").slice(0, 4).join(" ");
+      date = date.toDateString();
     }
     exerciseDoc = new Exercise({
       userid: userId,
@@ -48,8 +48,14 @@ const createExercise = (userId, description, duration, date = null, done) => {
     });
     exerciseDoc.save((err, exercise) => {
       if (err) return done(err);
-      exercise.username = user.username;
-      done(null, exercise);
+      const result = {
+        _id: user._id,
+        username: user.username,
+        date: exercise.date,
+        duration: exercise.duration,
+        description: exercise.description,
+      };
+      done(null, result);
     });
   });
 };
@@ -81,4 +87,10 @@ const findUserByName = (username, done) => {
   });
 };
 
-export { createUser, createExercise, findAllExercisesByUser, findAllUsers, findUserByName };
+module.exports = {
+  createUser,
+  createExercise,
+  findAllExercisesByUser,
+  findAllUsers,
+  findUserByName,
+};
